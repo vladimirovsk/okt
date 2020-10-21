@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
         <ThemeProvider theme={theme}>
-          <Header />
+            <Header />
           {routes}
         </ThemeProvider>
     </div>

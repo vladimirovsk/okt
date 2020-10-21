@@ -66,12 +66,19 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0.5
 
     },
-
     drawerItemSelected: {
         "& .MuiListItemText-root": {
             opacity: 1
         }
     },
+    textField: {
+        '& .MuiTextField-root': {
+          margin: theme.spacing(1),
+          width: '25ch',
+        },
+        backgroundColor: '#fff', //theme.palette.common.primary''
+        paddingTop: theme.spacing(4),
+      }
 
 }));
 
@@ -96,9 +103,9 @@ const Header = (props) => {
         setOpenPanel(true);
     };
 
-    //const handlePanelClose = () => {
-    //    setOpenPanel(false);
-    //};
+    const handlePanelClose = () => {
+        setOpenPanel(false);
+    };
 
     const handleCloseLogin = () =>{
         setOpenLogin(false);
@@ -167,8 +174,6 @@ const Header = (props) => {
                 label={"Home"}
                 onClick={()=>setValue(0)}
             />
-
-
             <Tab
                 className={classes.tab}
                 selected ={value === 1}
@@ -177,23 +182,76 @@ const Header = (props) => {
                 label={"Dashboard"}
                 onClick={()=>setValue(1)}
             />
-
-
             <Tab
                 className={classes.tab}
                 selected ={value === 2}
                 component={Link}
                 to='/login'
                 label={"Login"}
-                onClick={()=>(setValue(2), setOpenLogin(true) )}
+                 onClick={()=>(setValue(2))}
             />
 
         </Tabs>
     );
 
-
-
-
+    const dialog =(
+        <Dialog     open={openLogin}
+                    onClose={handleCloseLogin}
+                    disableBackdropClick
+                    disableEscapeKeyDown
+                    maxWidth="xs"
+                    onEntering={null}
+                    aria-labelledby="confirmation-dialog-title"
+                    aria-describedby="confirmation-dialog-description"
+                    
+            >
+                
+                <DialogTitle id="confirmation-dialog-title">{"Login"}</DialogTitle>
+                <DialogContent dividers>
+                    <DialogContentText id="confirmation-dialog-description">
+                        {"DialogContentText"}
+                    </DialogContentText>
+                    <TextField
+                        // className={classes.textField}
+                        id="login"
+                        label={'enter your email'}
+                        //margin="dense"
+                        type="email"
+                        //autoComplete="current-email"
+                        //variant="outlined"
+                        fullWidth
+                    />
+                    <TextField
+                        //className={classes.textField}
+                        //disabled={false}
+                        //autoFocus
+                        //margin="dense"
+                        id="password"
+                        label={'enter your password'}
+                        type="password"
+                        //autoComplete="current-password"
+                        //variant="outlined"
+                        fullWidth
+                    />
+                </DialogContent>
+                
+                <DialogActions>
+                    <Button onClick={handleCloseLogin}
+                            color="secondary" variant="outlined">
+                        {"Cancel"}
+                    </Button>
+                    <Button disabled={true}
+                            onClick={handleCloseLogin}
+                            color="secondary" variant="outlined">
+                        {"Login"}
+                    </Button>
+                </DialogActions>
+                
+            </Dialog>
+    )
+    React.useEffect(() => {
+        console.log("EFFECT OPEN LOGIN: "+openLogin);
+    },[openLogin])
 
     return(
         <React.Fragment>
@@ -217,59 +275,10 @@ const Header = (props) => {
                         {/*<Button color="inherit">Login</Button>*/}
 
                     </Toolbar>
+
                 </AppBar>
-            <Dialog open={openLogin} onClose={handleCloseLogin}
-                    disableBackdropClick
-                    disableEscapeKeyDown
-                    maxWidth="xs"
-                    onEntering={null}
-                    aria-labelledby="confirmation-dialog-title"
-            >
-                <DialogTitle id="form-dialog-title">Login</DialogTitle>
-
-                <DialogContent>
-                    <DialogContentText>
-
-                    </DialogContentText>
-                    <TextField
-                        //className={classes.textField}
-                        id="login"
-                        label='enter your email'
-                        //margin="dense"
-                        type="email"
-                        //autoComplete="current-email"
-                        //variant="outlined"
-                        fullWidth
-                    />
-                    <TextField
-                        //className={classes.textField}
-                        //disabled={false}
-                        //autoFocus
-                        //margin="dense"
-                        id="password"
-                        label='enter your password'
-                        type="password"
-                        //autoComplete="current-password"
-                        //variant="outlined"
-                        fullWidth
-                    />
-                </DialogContent>
-                <DialogActions>
-
-                    <Button onClick={handleCloseLogin}
-                        color="secondary" variant="outlined">
-                        Cancel
-                    </Button>
-                    <Button disabled={true}
-                            onClick={handleCloseLogin}
-                            color="secondary" variant="outlined">
-                        Login
-                    </Button>
-
-                </DialogActions>
-            </Dialog>
+                {dialog}
         </React.Fragment>
-
     )
 }
 

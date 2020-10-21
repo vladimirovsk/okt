@@ -1,4 +1,5 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+//import { createMuiTheme } from '@material-ui/core/';
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
 
 //const colorPrimary = "#00838f";
 //const colorSecondary = "#FFBA60";
