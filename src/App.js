@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from "./component/Header/Header";
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from '../src/component/UI/Theme'
 
 function App() {
+    const routes = (
+        <Switch>
+            <Route exact path="/"  render={()=><div><h3>Home route</h3></div>}/>
+            <Route path="/login" exact={true} render={() =><div><h3>Login route</h3></div>}/>
+            <Route path="/logout" exact={true} render={() =><div><h3>logout route</h3></div>}/>
+            <Route path="/dashboard" exact={true} render={() =><div><h3>logout dashboard</h3></div>}/>
+            <Redirect to={'/'}/>
+        </Switch>
+    )
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <ThemeProvider theme={theme}>
+          <Header />
+          {routes}
+        </ThemeProvider>
     </div>
   );
 }
