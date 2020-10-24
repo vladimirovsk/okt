@@ -6,9 +6,9 @@ export function auth(email, password, isLogin) {
         const authData = {
             email, password
         }
-        let url ='https://citypay.org.ua/rest/register';
+        let url ='https://127.0.0.1:8181/rest/register';
         if (isLogin) {
-            url = 'https://citypay.org.ua/rest/login';
+            url = 'https://127.0.0.1:8181/rest/login';
         }
 
         try {
@@ -38,8 +38,6 @@ export function auth(email, password, isLogin) {
         }
     }
 }
-
-
 export function autoLogout(time) {
     return dispatch => {
         setTimeout(()=>{

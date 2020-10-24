@@ -17,13 +17,11 @@ const store = createStore(
 );
 
 const app = (
-    <React.StrictMode>
     <Provider store={store}>
         <BrowserRouter>
             <App/>
         </BrowserRouter>
     </Provider>
-    </React.StrictMode>
 )
 
 ReactDOM.render(

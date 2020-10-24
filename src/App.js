@@ -4,9 +4,14 @@ import Header from "./component/Header/Header";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../src/component/UI/Theme'
-
+import { CssBaseline, CircularProgress } from '@material-ui/core';
+import firebase from './component/firebase'
 function App() {
-    const routes = (
+
+  const [firebaseInit, setFirebaseInit] = React.useState(false);
+  
+  const routes = (
+
         <Switch>
             <Route exact path="/"  render={()=><div><h3>Home route</h3></div>}/>
             <Route path="/login" exact={true} render={() =><div><h3>Login route</h3></div>}/>
@@ -15,14 +20,25 @@ function App() {
             <Redirect to={'/'}/>
         </Switch>
     )
-  return (
+
+  React.useEffect(()=>{
+     firebase.isInitialized().then(val =>{
+      setFirebaseInit(val)
+    })
+  },)
+
+  return firebaseInit !== false ? (
+ 
     <div className="App">
         <ThemeProvider theme={theme}>
+          <CssBaseline>
             <Header />
-          {routes}
+              {routes}
+          </CssBaseline>
         </ThemeProvider>
     </div>
-  );
+
+  ):<div id='loader'><CircularProgress /> </div>
 }
 
 export default App;
