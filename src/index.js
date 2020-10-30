@@ -6,8 +6,9 @@ import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom'
 import {composeWithDevTools} from "redux-devtools-extension";
 import {createStore, applyMiddleware} from 'redux';
-import rootReducers from "./store/reducers/rootReducers";
+import rootReducers from "./store/reducers/rootReducers"; //Подключаю модуль всех redusers
 import thunk from 'redux-thunk';
+
 
 import * as serviceWorker from './serviceWorker';
 

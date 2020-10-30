@@ -46,11 +46,9 @@ export default createMuiTheme({
       marginRight:"25px",
       fontSize:'1rem',
       textTransform:"upper",
-    },
-
-    links:{
-       //color:"black", 
     }
-  },
-  
+    
+  }, 
+
+
 })

@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import {connect} from 'react-redux'
 import {withRouter} from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,6 +8,7 @@ import {Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, CssBaseline
 import {Collapse, Toolbar, Typography, IconButton} from '@material-ui/core';
 //import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@material-ui/core";
+
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -28,10 +30,15 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import NoteIcon from '@material-ui/icons/Note';
 
+
 //Import my component
 import firebase from '../../component/firebase';
+
+import {auth} from '../../store/actions/auth';
+
 //import { SettingsSystemDaydreamOutlined } from '@material-ui/icons';
 //import logo from '../../assets/logo.png'
+
 
 const drawerWidth = 240;
 
@@ -39,18 +46,21 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
-    
+    toolbar: {
+        paddingRight: 24, // keep right padding when drawer closed
+      },
     appBar: {
+        zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['margin', 'width'], {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
       },
     appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-          easing: theme.transitions.easing.easeOut,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.enteringScreen,
         }),
       },
@@ -58,6 +68,10 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+    menuButtonHidden: {
+        display: 'none',
+      },
+
     hide: {
         display: 'none',
       },
@@ -117,15 +131,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Header = (props) => {
+
+const Header = (props, {isAuth}) => {
     const classes = useStyles();
-    const theme = useTheme();
-    
+    const theme = useTheme();    
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
     const [openPanel, setOpenPanel] = React.useState(false);
     const [openLogin, setOpenLogin] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(false);
-    const [isAuth, setAuth] = React.useState(false);
     const [openDirectory, setOpenDirectory] = React.useState(false); //Открытые директории справочников
     const [openReport, setOpenReport] = React.useState(false);
     const open = Boolean(anchorEl);
@@ -134,37 +147,28 @@ const Header = (props) => {
     const [password, setPassword] = React.useState('');
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-    //const [user, loading, error] = useAuthState(firebase.auth());
-
+    React.useEffect(()=>{
+        setOpenLogin(!props.isAuth)
+        console.log("Handle useEffect", props.isAuth)
+    }, [props.isAuth])
     
-    /**
-     * 
-     */
     async function onLogin(){
         try{
             await firebase.login(email,password);
             props.history.replace('/dashboard');
-            //console.log(props.history)
-            setAuth(true);
             handleCloseLogin();
-            //firebase.auth.onAuthStateChanged((data => {console.log(data)}))
         }catch(error){
             alert(error.message)
         }
-
     }
 
-    React.useEffect(() => {
-        const unsubscrible =  firebase.auth.onAuthStateChanged((data =>{console.log(data)}))
-
-
-        return() => unsubscrible;
-        //console.log("EFFECT isAuth: "+isAuth);
-        //setOpenLogin(!isAuth)
-    },[])
-
-
-    //const [selectedIndex, setSelectedIndex] = React.useState(1);
+    function handleLogin()  {
+        props.auth(email, password, true) 
+        if (props.isAuth ===true) {
+            handleCloseLogin()
+        } else {
+            setOpenLogin(true)}
+    }
 
     const habdleCloseMenu =() =>{
         setAnchorEl();
@@ -189,6 +193,12 @@ const Header = (props) => {
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
+        switch(index){
+            case 0: {props.history.replace('/dashboard'); break;}
+            case 1: {props.history.replace('/dashboard/houses'); break;}
+            case 2: {props.history.replace('/dashboard/banking'); break;}
+            default: {props.history.replace('/dashboard/p404'); break;}
+        }
       };
 
     const handleDirectory =() =>{
@@ -220,8 +230,8 @@ const Header = (props) => {
                         label={'Enter your email'}
                         margin="dense"
                         type="email"
-                        autoComplete="current-email"
-                        variant="outlined"
+                        //autoComplete="current-email"
+                        //variant="outlined"
 
                         fullWidth
                         value={email}
@@ -237,7 +247,7 @@ const Header = (props) => {
                         label={'Enter your password'}
                         type="password"
                         //autoComplete="current-password"
-                        variant="outlined"
+                        //variant="outlined"
                         fullWidth
                         value={password}
                         onChange={e => setPassword(e.target.value)}
@@ -253,7 +263,7 @@ const Header = (props) => {
                             {"Cancel"}
                     </Button>
                     <Button disabled={false}
-                            onClick={onLogin}
+                            onClick={handleLogin}
                             color="secondary" 
                             variant="outlined">
 
@@ -293,11 +303,11 @@ const Header = (props) => {
             </ListItem>
             <ListItem 
                 selected={selectedIndex === 1} 
-                button key="Home" 
+                button key="Homes" 
                 onClick={(event)=>handleListItemClick(event, 1)}
                 >
                 <ListItemIcon><HomeIcon></HomeIcon></ListItemIcon>
-                <ListItemText primary={'Home'} />
+                <ListItemText primary={'Houses'} />
             </ListItem>
             <ListItem  
                 selected={selectedIndex === 2}
@@ -378,6 +388,10 @@ const Header = (props) => {
             <ListItemText primary={'Setting'} />
         </ListItem>
       </Drawer>
+      <main className={classes.content}>
+        
+      </main>
+      
       </React.Fragment>
     )
 
@@ -387,7 +401,7 @@ const Header = (props) => {
                 <AppBar position="fixed" className={clsx(classes.appBar, {
                                                 [classes.appBarShift]: openPanel,
                                             })}>
-                    <Toolbar>
+                    <Toolbar className={classes.toolbar}>
                         <IconButton
                             edge="start"
                             onClick={handlePanel}
@@ -427,7 +441,7 @@ const Header = (props) => {
                         >
                             <MenuItem onClick={null}>Profile</MenuItem>
                             <hr/>
-                            <MenuItem onClick={handleOpenLogin}>{isAuth ?'Logout': 'Login'}</MenuItem>
+                            <MenuItem onClick={handleOpenLogin}>{props.isAuth ?'Logout': 'Login'}</MenuItem>
                             
                         </Menu>
 
@@ -441,12 +455,22 @@ const Header = (props) => {
     )
 }
 
-export default withRouter(Header);
+function mapDispatchToProps(dispatch) {
+    return {
+        auth: (email, password, isLogin) => dispatch(auth(email, password, isLogin))
+    }
+}
 
+function mapStateToProps(state) {
+    return {
+        isAuth: !!state.auth.token
+      }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
 /*
-                        <Button hidden={true} component={Link} to="/" onClick={()=>setSelectedIndex(1)}
-                                disableRipple
-                                className={classes.logoContainer}>
-                            <img alt="logo" src={logo} className={classes.logo} />
-                        </Button>
+    <Button hidden={true} component={Link} to="/" onClick={()=>setSelectedIndex(1)}
+            disableRipple
+            className={classes.logoContainer}>
+        <img alt="logo" src={logo} className={classes.logo} />
+    </Button>
 */
