@@ -197,6 +197,7 @@ const Header = (props, {isAuth}) => {
             case 0: {props.history.replace('/dashboard'); break;}
             case 1: {props.history.replace('/dashboard/houses'); break;}
             case 2: {props.history.replace('/dashboard/banking'); break;}
+            case 5: {props.history.replace('/setup'); break;}
             default: {props.history.replace('/dashboard/p404'); break;}
         }
       };
@@ -381,11 +382,11 @@ const Header = (props, {isAuth}) => {
             </Collapse>
         <ListItem  
             selected={selectedIndex === 5} 
-            button key="Setting"
+            button key="Setup"
             onClick={(event)=>handleListItemClick(event, 5)}
             >  
             <ListItemIcon><SettingsIcon></SettingsIcon></ListItemIcon>
-            <ListItemText primary={'Setting'} />
+            <ListItemText primary={'Setup'} />
         </ListItem>
       </Drawer>
       <main className={classes.content}>

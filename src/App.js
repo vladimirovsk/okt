@@ -10,6 +10,7 @@ import firebase from './component/firebase'
 import {connect} from 'react-redux'
 
 //PAGES
+import Setup from './component/pages/Setup/Setup';
 import Dashboard from './component/pages/Dashboard/Dashboard';
 import Houses from './component/pages/Houses/Houses';
 import Banking from './component/pages/Banking/Banking';
@@ -42,6 +43,7 @@ function App({isAuth}) {
               <Route path="/dashboard/houses" exact={true} render={() =><Houses />}/>
               <Route path="/dashboard/banking" exact={true} render={() =><Banking />}/>
               <Route path="/dashboard/p404" exact={true} render={() =><Developing />}/>
+              <Route path="/setup" exact={true} render={() =><Setup />}/>
               <Redirect to={'/'}/>
         </Switch>
 
