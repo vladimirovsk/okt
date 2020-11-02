@@ -402,14 +402,15 @@ const Header = (props, {isAuth}) => {
                                                 [classes.appBarShift]: openPanel,
                                             })}>
                     <Toolbar className={classes.toolbar}>
-                        <IconButton
+                        <IconButton 
+                            
                             edge="start"
-                            onClick={handlePanel}
+                            onClick={props.isAuth ?handlePanel :null}
                             className={clsx(classes.menuButton, open && classes.hide)}
                             color="inherit"
                             aria-label="open drawer"
                         >
-                        <MenuIcon />
+                        <MenuIcon hidden={true}/>
                         </IconButton>
                         <Typography variant="h6" className={classes.title} noWrap>
                             OKT
