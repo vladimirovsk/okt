@@ -27,7 +27,8 @@ export function auth(email, password, isLogin) {
             const data = responce.data
             if (data.auth) {
                 //console.log("VERIFICATION")
-                const expirationDate = new Date(new Date().getTime()+ 3600*1000)
+//                const expirationDate = new Date(new Date().getTime()+ 3600*1000)
+                const expirationDate = new Date(new Date().getTime()+ 3600*10)
                 localStorage.setItem('token', data.jwt);
                 localStorage.setItem('userId', data.data[0].ID);
                 localStorage.setItem('expirationDate', expirationDate);
@@ -46,8 +47,9 @@ export function autoLogout(time) {
     return dispatch => {
         setTimeout(()=>{
             dispatch(logout())
-        }, time*1000)
-    }
+        }, time*10)
+//    }, time*1000)
+}
 }
 
 export function autoLogin(){

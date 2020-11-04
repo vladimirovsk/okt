@@ -7,7 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import {Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, CssBaseline} from '@material-ui/core';
 import {Collapse, Toolbar, Typography, IconButton} from '@material-ui/core';
 //import useMediaQuery from "@material-ui/core/useMediaQuery";
-import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@material-ui/core";
+import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress} from "@material-ui/core";
 
 
 import TextField from "@material-ui/core/TextField";
@@ -20,8 +20,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import HomeIcon from '@material-ui/icons/Home';
 import EventNoteIcon from '@material-ui/icons/EventNote';
@@ -47,7 +45,13 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
+        //paddingRight: 24, // keep right padding when drawer closed
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
       },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -83,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
+        whiteSpace: 'nowrap',
       },
 
     drawerPaper: {
@@ -97,6 +102,25 @@ const useStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
     },
+
+    drawerOpen: {
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+      drawerClose: {
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        overflowX: 'hidden',
+        width: theme.spacing(7) + 1,
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9) + 1,
+        },
+      },
 
     content: {
         flexGrow: 1,
@@ -127,15 +151,23 @@ const useStyles = makeStyles((theme) => ({
       directory: {
         paddingLeft: theme.spacing(4),
       },
+      buttonProgress: {
+        color: '#5DADE2',  
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: -12,
+        marginLeft: -12,
+      },
 
 }));
 
-
-
-const Header = (props, {isAuth}) => {
+const Header = (props) => {
     const classes = useStyles();
     const theme = useTheme();    
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
+    const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
+
     const [openPanel, setOpenPanel] = React.useState(false);
     const [openLogin, setOpenLogin] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(false);
@@ -149,7 +181,10 @@ const Header = (props, {isAuth}) => {
 
     React.useEffect(()=>{
         setOpenLogin(!props.isAuth)
-        console.log("Handle useEffect", props.isAuth)
+        if (openPanel && !props.isAuth){
+            setOpenPanel(false)
+        }
+        //console.log("Handle useEffect", props.isAuth)
     }, [props.isAuth])
     
     async function onLogin(){
@@ -162,10 +197,13 @@ const Header = (props, {isAuth}) => {
         }
     }
 
-    function handleLogin()  {
-        props.auth(email, password, true) 
+    async function handleLogin()  {
+        await props.auth(email, password, true) 
+
         if (props.isAuth ===true) {
+            setLoading(false)
             handleCloseLogin()
+            setOpenLogin(false)
         } else {
             setOpenLogin(true)}
     }
@@ -178,17 +216,25 @@ const Header = (props, {isAuth}) => {
         setAnchorEl(event.currentTarget);
     }
 
-    const handlePanel = () => {
+    const handleDrawerOpen = () => {
         setOpenPanel(!openPanel);
-    };
+        };                
+
 
     const handleCloseLogin = () =>{
+
+        setOpenPanel(false);
         setOpenLogin(false);
     }
 
     const handleOpenLogin = () =>{
-        habdleCloseMenu();
-        setOpenLogin(true);
+
+        if (!props.isAuth) {
+            habdleCloseMenu();
+            setOpenLogin(true);
+        } else {
+            //props.isAuth = false;
+        }
     }
 
     const handleListItemClick = (event, index) => {
@@ -226,7 +272,7 @@ const Header = (props, {isAuth}) => {
                        
                     </DialogContentText>
                     <TextField
-                         className={classes.textField}
+                        className={classes.textField}
                         id="login"
                         label={'Enter your email'}
                         margin="dense"
@@ -264,13 +310,31 @@ const Header = (props, {isAuth}) => {
                             {"Cancel"}
                     </Button>
                     <Button disabled={false}
-                            onClick={handleLogin}
+                            onClick={(event) => handleLogin(event)}
                             color="secondary" 
                             variant="outlined">
 
                             {"Login"}
+                            {loading && <CircularProgress disableShrink size={24} className={classes.buttonProgress}/>}
                     </Button>
+                    
+
                 </DialogActions>
+
+                {/*
+                    return firebaseInit !== false ? (
+                    
+                        <div className="App">
+                            <ThemeProvider theme={theme}>
+                            <CssBaseline>
+                                <Header />
+                                {routes}
+                            </CssBaseline>
+                            </ThemeProvider>
+                        </div>
+
+                    ):<div id='loader'><CircularProgress /> </div>
+                */}
                 
             </Dialog>
     )
@@ -279,18 +343,26 @@ const Header = (props, {isAuth}) => {
     const drawer =(
         <React.Fragment>
         <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="left"
-            open={openPanel}
+            hidden = {!props.isAuth}
+            variant="permanent"
+
+            className={clsx(classes.drawer, {
+                [classes.drawerOpen]: openPanel,
+                [classes.drawerClose]: !openPanel && props.isAuth
+            })}
+
             classes={{
-            paper: classes.drawerPaper,
-            }}
+            paper: clsx({
+                [classes.drawerOpen]: openPanel,
+                [classes.drawerClose]: !openPanel
+            }),
+            }} 
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handlePanel}>
+
+          {/*<IconButton onClick={handlePanel}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+        </IconButton>*/}
         </div>
         <Divider />
         <List>
@@ -399,20 +471,24 @@ const Header = (props, {isAuth}) => {
     return(
         <div className={classes.root}>
             <CssBaseline />
-                <AppBar position="fixed" className={clsx(classes.appBar, {
+                <AppBar 
+                    position="fixed" 
+                    className={clsx(classes.appBar, {
                                                 [classes.appBarShift]: openPanel,
                                             })}>
-                    <Toolbar className={classes.toolbar}>
+
+                    <Toolbar>
                         <IconButton 
-                            
                             edge="start"
-                            onClick={props.isAuth ?handlePanel :null}
+                            onClick={props.isAuth ?handleDrawerOpen :null}
+                            //onClick = {handleDrawerOpen}
                             className={clsx(classes.menuButton, open && classes.hide)}
                             color="inherit"
                             aria-label="open drawer"
                         >
-                        <MenuIcon hidden={true}/>
+                        <MenuIcon/>
                         </IconButton>
+
                         <Typography variant="h6" className={classes.title} noWrap>
                             OKT
                         </Typography>
