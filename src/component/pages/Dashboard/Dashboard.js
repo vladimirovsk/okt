@@ -16,7 +16,71 @@ const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
     },
-    toolbar: {
+   
+    appBarSpacer: theme.mixins.toolbar,
+    
+    content: {
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
+    },
+    
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
+    },
+    fixedHeight: {
+      height: 500,
+    },
+  })
+);
+
+const Dashboard =() => {
+  const classes = useStyles();
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  return (
+    <React.Fragment>
+    <div className={classes.appBarSpacer} />
+
+      <h3>DASHBOARD</h3>
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            {/* Chart */}
+            <Grid item xs={12} md={8} lg={9}>
+              <Paper className={fixedHeightPaper}>
+                <Chart />
+              </Paper>
+            </Grid>
+            {/* Recent Deposits */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={fixedHeightPaper}>
+                <Deposits />
+              </Paper>
+            </Grid>
+            {/* Recent Orders */}
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <Orders />
+              </Paper>
+            </Grid>
+          </Grid>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+    </React.Fragment>
+  )
+}
+export default (Dashboard);
+
+/**
+ *  toolbar: {
       paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
@@ -70,71 +134,4 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(9),
       },
     },
-    appBarSpacer: theme.mixins.toolbar,
-    
-    content: {
-      flexGrow: 1,
-      height: '100vh',
-      overflow: 'auto',
-    },
-    
-    container: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
-    },
-    paper: {
-      padding: theme.spacing(2),
-      display: 'flex',
-      overflow: 'auto',
-      flexDirection: 'column',
-    },
-    fixedHeight: {
-      height: 440,
-    },
-  })
-);
-
-const Dashboard =({counter, inc, dec, rnd}) => {
-
-  const classes = useStyles();
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  
-  return (
-    <React.Fragment>
-    <div className={classes.appBarSpacer} />
-   
-      
-      <h3>DASHBOARD</h3>
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-    </React.Fragment>
-  )
-}
-
-
-
-
-export default (Dashboard);
+ */

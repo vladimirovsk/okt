@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import {connect} from 'react-redux'
 import {withRouter} from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,8 +7,6 @@ import {Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, CssBaseline
 import {Collapse, Toolbar, Typography, IconButton} from '@material-ui/core';
 //import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress} from "@material-ui/core";
-
-
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -27,18 +24,19 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import NoteIcon from '@material-ui/icons/Note';
+import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
+//import { useSelector} from 'react-redux';
 
+//import {useContext} from 'react';
+//import {Context} from '../../context'
 
 //Import my component
-import firebase from '../../component/firebase';
-
-import {auth} from '../../store/actions/auth';
-
+//import firebase from '../../component/firebase';
+//import {auth} from '../../store/actions/auth';
 //import { SettingsSystemDaydreamOutlined } from '@material-ui/icons';
 //import logo from '../../assets/logo.png'
-
-
 const drawerWidth = 240;
+const nodeEnv = process.env.NODE_ENV;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,9 +51,10 @@ const useStyles = makeStyles((theme) => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
       },
-    appBar: {
+
+      appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['margin', 'width'], {
+        transition: theme.transitions.create(['width', 'margin'], {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
@@ -72,10 +71,6 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
-    menuButtonHidden: {
-        display: 'none',
-      },
-
     hide: {
         display: 'none',
       },
@@ -125,11 +120,12 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
+        //transition: theme.transitions.create('margin', {
+        //  easing: theme.transitions.easing.sharp,
+        //  duration: theme.transitions.duration.leavingScreen,
+        //}),
+        //marginLeft: -drawerWidth,
+        
       },
       contentShift: {
         transition: theme.transitions.create('margin', {
@@ -145,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
           width: '25ch',
         },
 
-        backgroundColor: '#fff', //theme.palette.common.primary''
+        //backgroundColor: '#fff', //theme.palette.common.primary''
         paddingTop: theme.spacing(1),
       },
       directory: {
@@ -161,12 +157,14 @@ const useStyles = makeStyles((theme) => ({
       },
 
 }));
-
 const Header = (props) => {
     const classes = useStyles();
-    const theme = useTheme();    
+    const theme = useTheme();  
+
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
     const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
+    //const type = useContext(Context);
+    
 
     const [openPanel, setOpenPanel] = React.useState(false);
     const [openLogin, setOpenLogin] = React.useState(false);
@@ -179,33 +177,36 @@ const Header = (props) => {
     const [password, setPassword] = React.useState('');
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
+    const isAuth = true//useSelector(state => state.isAuth)
+
+
     React.useEffect(()=>{
-        setOpenLogin(!props.isAuth)
-        if (openPanel && !props.isAuth){
-            setOpenPanel(false)
-        }
+       // setOpenLogin(!props.isAuth)
+        //if (openPanel && !props.isAuth){
+        //    setOpenPanel(false)
+        //}
         //console.log("Handle useEffect", props.isAuth)
-    }, [props.isAuth])
+    }, [])
     
-    async function onLogin(){
-        try{
-            await firebase.login(email,password);
-            props.history.replace('/dashboard');
-            handleCloseLogin();
-        }catch(error){
-            alert(error.message)
-        }
-    }
+    // async function onLogin(){
+    //     try{
+    //         await firebase.login(email,password);
+    //         props.history.replace('/dashboard');
+    //         handleCloseLogin();
+    //     }catch(error){
+    //         alert(error.message)
+    //     }
+    // }
 
     async function handleLogin()  {
-        await props.auth(email, password, true) 
+        //await props.auth(email, password, true) 
 
-        if (props.isAuth ===true) {
+        //if (props.isAuth ===true) {
             setLoading(false)
-            handleCloseLogin()
-            setOpenLogin(false)
-        } else {
-            setOpenLogin(true)}
+        //    handleCloseLogin()
+        //    setOpenLogin(false)
+        //} else {
+        //    setOpenLogin(true)}
     }
 
     const habdleCloseMenu =() =>{
@@ -241,9 +242,12 @@ const Header = (props) => {
         setSelectedIndex(index);
         switch(index){
             case 0: {props.history.replace('/dashboard'); break;}
-            case 1: {props.history.replace('/dashboard/houses'); break;}
-            case 2: {props.history.replace('/dashboard/banking'); break;}
-            case 5: {props.history.replace('/setup'); break;}
+            case 1: {props.history.replace('/todo'); break;}
+            case 2: {props.history.replace('/dashboard/houses'); break;}
+            case 3: {props.history.replace('/dashboard/banking'); break;}
+            case 41: {props.history.replace('/directoris/street'); break;}
+            case 51: {props.history.replace('/report/report1'); break;}
+            case 6: {props.history.replace('/setup'); break;}
             default: {props.history.replace('/dashboard/p404'); break;}
         }
       };
@@ -303,7 +307,7 @@ const Header = (props) => {
                 
                 <DialogActions>
                     <Button onClick={handleCloseLogin}
-                            color="secondary" 
+                            //color="secondary" 
                             variant="outlined"
                             >
 
@@ -311,7 +315,7 @@ const Header = (props) => {
                     </Button>
                     <Button disabled={false}
                             onClick={(event) => handleLogin(event)}
-                            color="secondary" 
+                            //color="secondary" 
                             variant="outlined">
 
                             {"Login"}
@@ -339,16 +343,14 @@ const Header = (props) => {
             </Dialog>
     )
 
-
     const drawer =(
         <React.Fragment>
         <Drawer
-            hidden = {!props.isAuth}
             variant="permanent"
 
             className={clsx(classes.drawer, {
                 [classes.drawerOpen]: openPanel,
-                [classes.drawerClose]: !openPanel && props.isAuth
+                [classes.drawerClose]: !openPanel
             })}
 
             classes={{
@@ -358,10 +360,10 @@ const Header = (props) => {
             }),
             }} 
       >
-        <div className={classes.drawerHeader}>
+        <div className={classes.toolbar}>
 
-          {/*<IconButton onClick={handlePanel}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+           {/* <IconButton onClick={handlePanel}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>*/}
         </div>
         <Divider />
@@ -374,25 +376,35 @@ const Header = (props) => {
                 <ListItemIcon><DashboardIcon></DashboardIcon></ListItemIcon>
                 <ListItemText primary={'Dashboard'} />
             </ListItem>
-            <ListItem 
-                selected={selectedIndex === 1} 
-                button key="Homes" 
+
+            <ListItem  
+                selected={selectedIndex === 1}
+                button key="ToDo" 
                 onClick={(event)=>handleListItemClick(event, 1)}
+                >
+                <ListItemIcon><LibraryAddCheckIcon></LibraryAddCheckIcon></ListItemIcon>
+                <ListItemText primary={'Todo'} />
+
+            </ListItem>
+            <ListItem 
+                selected={selectedIndex === 2} 
+                button key="Houses" 
+                onClick={(event)=>handleListItemClick(event, 2)}
                 >
                 <ListItemIcon><HomeIcon></HomeIcon></ListItemIcon>
                 <ListItemText primary={'Houses'} />
             </ListItem>
             <ListItem  
-                selected={selectedIndex === 2}
+                selected={selectedIndex === 3}
                 button key="Banking"
-                onClick={(event)=>handleListItemClick(event, 2)}
+                onClick={(event)=>handleListItemClick(event, 3)}
                 > 
                 <ListItemIcon><AccountBalanceIcon></AccountBalanceIcon></ListItemIcon>
                 <ListItemText primary={'Banking'} />
             </ListItem>
             <ListItem
                 button key="Directories"
-                selected={selectedIndex === 3} 
+                selected={selectedIndex === 4} 
                 onClick={handleDirectory}>
                 <ListItemIcon>
                 <InboxIcon />
@@ -406,9 +418,9 @@ const Header = (props) => {
             <Collapse in={openDirectory} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                 <ListItem 
-                    selected={selectedIndex === 31} 
+                    selected={selectedIndex === 41} 
                     button className={classes.directory}
-                    onClick={(event)=>handleListItemClick(event, 31)}
+                    onClick={(event)=>handleListItemClick(event, 41)}
                 >    
                     <ListItemIcon>
                     <ViewListIcon />
@@ -420,9 +432,9 @@ const Header = (props) => {
         </List>
         <Divider />
         <ListItem 
-            selected={selectedIndex === 4}
+            selected={selectedIndex === 5}
             button key="Reports"
-            onClick={((event)=>handleListItemClick(event, 4), handleReport)}
+            onClick={((event)=>handleListItemClick(event, 5), handleReport)}
             > 
             <ListItemIcon><EventNoteIcon></EventNoteIcon></ListItemIcon>
             <ListItemText primary={'Reports'} />
@@ -453,21 +465,17 @@ const Header = (props) => {
                 </List>
             </Collapse>
         <ListItem  
-            selected={selectedIndex === 5} 
+            selected={selectedIndex === 6} 
             button key="Setup"
-            onClick={(event)=>handleListItemClick(event, 5)}
+            onClick={(event)=>handleListItemClick(event, 6)}
             >  
             <ListItemIcon><SettingsIcon></SettingsIcon></ListItemIcon>
             <ListItemText primary={'Setup'} />
         </ListItem>
       </Drawer>
-      <main className={classes.content}>
-        
-      </main>
       
       </React.Fragment>
     )
-
     return(
         <div className={classes.root}>
             <CssBaseline />
@@ -480,7 +488,7 @@ const Header = (props) => {
                     <Toolbar>
                         <IconButton 
                             edge="start"
-                            onClick={props.isAuth ?handleDrawerOpen :null}
+                            onClick={isAuth ?handleDrawerOpen :null}
                             //onClick = {handleDrawerOpen}
                             className={clsx(classes.menuButton, open && classes.hide)}
                             color="inherit"
@@ -488,11 +496,9 @@ const Header = (props) => {
                         >
                         <MenuIcon/>
                         </IconButton>
-
                         <Typography variant="h6" className={classes.title} noWrap>
-                            OKT
-                        </Typography>
-                    
+                            CRM&nbsp;mode:{nodeEnv} 
+                        </Typography> 
                         <IconButton
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
@@ -522,29 +528,17 @@ const Header = (props) => {
                             <MenuItem onClick={handleOpenLogin}>{props.isAuth ?'Logout': 'Login'}</MenuItem>
                             
                         </Menu>
-
                     </Toolbar>
-
                 </AppBar>
                 {drawer}
-                
+                <main className={classes.content}>
+                </main> 
                 {dialog}
         </div>
     )
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        auth: (email, password, isLogin) => dispatch(auth(email, password, isLogin))
-    }
-}
-
-function mapStateToProps(state) {
-    return {
-        isAuth: !!state.auth.token
-      }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+export default (withRouter(Header));
 /*
     <Button hidden={true} component={Link} to="/" onClick={()=>setSelectedIndex(1)}
             disableRipple

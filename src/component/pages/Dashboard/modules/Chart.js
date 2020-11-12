@@ -52,10 +52,7 @@ const data = [
 ];
 
 export default function Charts() {
-
-  //let Hlines = '<div>NONE</div>'
-  React.useEffect(()=>{
-  
+  React.useEffect(()=>{  
   },[])
 
   return (
