@@ -9,7 +9,7 @@ import Chart from './modules/Chart';
 import Deposits from './modules/Deposits';
 import Orders from './modules/Orders';
 
-const drawerWidth = 240;
+
 
 const useStyles = makeStyles((theme) => ({
 

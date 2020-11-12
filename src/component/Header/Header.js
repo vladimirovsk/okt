@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import {withRouter} from "react-router-dom";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import {Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, CssBaseline} from '@material-ui/core';
 import {Collapse, Toolbar, Typography, IconButton} from '@material-ui/core';
@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Header = (props) => {
     const classes = useStyles();
-    const theme = useTheme();  
+   //const theme = useTheme();  
 
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
     const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
