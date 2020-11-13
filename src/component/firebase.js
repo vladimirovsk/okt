@@ -10,15 +10,6 @@ const storageBucket      = process.env.REACT_APP_FIRBASE_BUCKET;
 const messagingSenderId  = process.env.REACT_APP_FIRBASE_SENDER_ID;
 const appId              = process.env.REACT_APP_FIRBASE_API_APP_ID;
 
-
-// apiKey : "https://ng-crm-75a1f.firebaseio.com" 
-// authDomain: "ng-crm-75a1f.firebaseapp.com",
-// databaseURL: "https://ng-crm-75a1f.firebaseio.com",
-// projectId: "ng-crm-75a1f",
-// storageBucket: "ng-crm-75a1f.appspot.com",
-// messagingSenderId: "87725660702",
-// appId: "1:87725660702:web:02cfa90418c5b323d76c0f"
-
 const url = process.env.REACT_APP_DB_URL
 
 
