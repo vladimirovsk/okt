@@ -16,8 +16,8 @@ const colorSpecial = "#FFBA60"; //orange
 export default MyTheme({
   
   palette:{
-      //type:'dark',
-      type:"light", //dark
+      //type:'dark, light',
+      type:"dark", //dark
     common:{
       colorPrimary:`${colorPrimary}`,
       colorSecondary:`${colorSecondary}`,
