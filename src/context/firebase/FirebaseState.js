@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {FirebaseContext}  from './firebaseContext'
-import { firebaseReduser } from './firebaseReduser';
+import {firebaseReduser} from './firebaseReduser';
 import {SHOW_LOADER, REMOVE_NOTE, FETCH_NOTES, ADD_NOTE} from '../type'
 
 const url = process.env.REACT_APP_DB_URL

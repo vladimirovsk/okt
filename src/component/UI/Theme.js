@@ -17,7 +17,7 @@ export default MyTheme({
   
   palette:{
       //type:'dark, light',
-      type:"dark", //dark
+      type:"light", //dark
     common:{
       colorPrimary:`${colorPrimary}`,
       colorSecondary:`${colorSecondary}`,
@@ -28,7 +28,7 @@ export default MyTheme({
       light: `${colorPrimary}`,
 	    dark: `${colorSpecial}`,//'#002884',
       main:`${colorPrimary}`,
-      contrastText: '#000',
+      contrastText: `${colorSpecial}`//'#000',
     },
 
       secondary:{

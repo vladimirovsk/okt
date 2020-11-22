@@ -23,14 +23,11 @@ import MyAlert from './component/MyAlert/MyAlert'
 import AlertState from './context/alert/alertState';
 import {FirebaseState} from './context/firebase/FirebaseState';
 import Loader from './component/Loader/Loader'
-
 //import  MyTheme from './component/UI/Theme'
-
 
 function App() {
   const [firebaseInit, setFirebaseInit] = React.useState(false);
   const isAuth = true;//useSelector(state => state.isAuth = true);
-
   let routes = "";
   if (!isAuth) {
      routes = (
