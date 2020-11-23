@@ -60,9 +60,7 @@ function App() {
       setFirebaseInit(val)
     })
   })
-
-
-
+  
   return firebaseInit !== false ? (
     <div className="App">
       <FirebaseState>

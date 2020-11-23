@@ -42,7 +42,6 @@ function Todo(){
   React.useEffect(()=>{
       fetchNotes()
       console.log("notes", firebase)
-      // eslint-disable-next-line
   }, [])
 
   

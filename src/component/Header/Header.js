@@ -181,12 +181,14 @@ const Header = (props) => {
 
 
     React.useEffect(()=>{
+        setSelectedIndex(selectedIndex);
+        console.log(selectedIndex);
        // setOpenLogin(!props.isAuth)
         //if (openPanel && !props.isAuth){
         //    setOpenPanel(false)
         //}
         //console.log("Handle useEffect", props.isAuth)
-    }, [])
+    }, [selectedIndex])
     
     // async function onLogin(){
     //     try{
@@ -405,7 +407,10 @@ const Header = (props) => {
             <ListItem
                 button key="Directories"
                 selected={selectedIndex === 4} 
-                onClick={handleDirectory}>
+                onClick={(event)=> {
+                    handleListItemClick(event ,4); 
+                    handleDirectory();
+                }}>
                 <ListItemIcon>
                 <InboxIcon />
                 </ListItemIcon>
@@ -434,8 +439,10 @@ const Header = (props) => {
         <ListItem 
             selected={selectedIndex === 5}
             button key="Reports"
-            onClick={((event)=>handleListItemClick(event, 5), handleReport)}
-            > 
+            onClick={(event)=>{
+                handleListItemClick(event, 5);
+                handleReport();
+            }}> 
             <ListItemIcon><EventNoteIcon></EventNoteIcon></ListItemIcon>
             <ListItemText primary={'Reports'} />
             {openReport ? <ExpandLess /> : <ExpandMore />}
@@ -443,8 +450,8 @@ const Header = (props) => {
             <Collapse in={openReport} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                 <ListItem 
-                    selected={selectedIndex === 41}
-                    onClick={(event)=>handleListItemClick(event, 41)} 
+                    selected={selectedIndex === 51}
+                    onClick={(event)=>handleListItemClick(event, 51)} 
                     button className={classes.directory}
                 >
                     <ListItemIcon>
@@ -453,8 +460,8 @@ const Header = (props) => {
                     <ListItemText primary="report 1" />
                 </ListItem>
                 <ListItem 
-                    selected={selectedIndex === 42}
-                    onClick={(event)=>handleListItemClick(event, 42)} 
+                    selected={selectedIndex === 52}
+                    onClick={(event)=>handleListItemClick(event, 52)} 
                     button className={classes.directory}
                 >
                     <ListItemIcon>

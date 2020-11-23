@@ -20,8 +20,6 @@ export const Tables = ({notes}) => (
         <div>{note.date}</div>
       </div>
     ))}
-
-
     )
   </React.Fragment>
 )
