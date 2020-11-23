@@ -28,7 +28,7 @@ function Todo(){
 
   const classes = useStyles();
   //const alert = React.useContext(AlertContext)
-  const {loading,fetchNotes, notes} = React.useContext(FirebaseContext)
+  const {loading, fetchNotes, notes} = React.useContext(FirebaseContext)
   const firebase = React.useContext(FirebaseContext)
   // const handleBtnClick = event =>{ 
   //     event.preventDefault();

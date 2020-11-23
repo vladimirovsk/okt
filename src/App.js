@@ -4,10 +4,8 @@ import Header from "./component/Header/Header";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './component/UI/Theme'
-//import { CssBaseline, CircularProgress } from '@material-ui/core';
 import { CssBaseline } from '@material-ui/core';
 import firebase from './component/firebase'
-
 
 //PAGES
 import Setup from './component/pages/Setup/Setup';
