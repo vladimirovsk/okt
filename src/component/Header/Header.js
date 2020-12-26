@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import {Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, CssBaseline} from '@material-ui/core';
 import {Collapse, Toolbar, Typography, IconButton} from '@material-ui/core';
-//import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -14,7 +13,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MenuIcon from '@material-ui/icons/Menu';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -158,8 +156,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 const Header = (props) => {
-    const classes = useStyles();
-   //const theme = useTheme();  
+    const classes = useStyles(); 
 
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
     const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
@@ -177,7 +174,7 @@ const Header = (props) => {
     const [password, setPassword] = React.useState('');
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-    const isAuth = true//useSelector(state => state.isAuth)
+    const isAuth = false//useSelector(state => state.isAuth)
 
 
     React.useEffect(()=>{
@@ -540,7 +537,6 @@ const Header = (props) => {
                 {drawer}
                 <main className={classes.content}>
                 </main> 
-                {dialog}
         </div>
     )
 }

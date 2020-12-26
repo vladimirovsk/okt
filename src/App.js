@@ -32,24 +32,24 @@ function App() {
   if (!isAuth) {
      routes = (
       <Switch>
-        <Route exact path="/" render={() => <div><h3>Home route</h3></div>} />
+        <Route path="/"                 exact={true} render={() => <div><h3>Home route</h3></div>} />
         <Route path="/dashboard/houses" exact={true} render={() => <Houses />} />
-        <Route path="/login" exact={true} render={() => <div><h3>Login route</h3></div>} />
-        <Route path="/dashboard/p404" exact={true} render={() => <Developing />} />
+        <Route path="/login"            exact={true} render={() => <div><h3>Login route</h3></div>} />
+        <Route path="/dashboard/p404"   exact={true} render={() => <Developing />} />
         <Redirect to={'/'} />
       </Switch>
     );
   }else{
      routes = (
       <Switch>
-        <Route exact path="/" render={() => <div><h3>Home route</h3></div>} />
-        <Route path="/logout" exact={true} render={() => <Logout />} />
-        <Route path="/dashboard" exact={true} render={() => <Dashboard selected />} />
-        <Route path="/dashboard/houses" exact={true} render={() => <Houses />} />
-        <Route path="/dashboard/banking" exact={true} render={() => <Banking />} />
-        <Route path="/dashboard/p404" exact={true} render={() => <Developing />} />
-        <Route path="/todo" exact={true} render={() => <Todo />} />
-        <Route path="/setup" exact={true} render={() => <Setup />} />
+        <Route path="/"                   exact={true} render={() => <div><h3>Home route</h3></div>} />
+        <Route path="/logout"             exact={true} render={() => <Logout />} />
+        <Route path="/dashboard"          exact={true} render={() => <Dashboard selected />} />
+        <Route path="/dashboard/houses"   exact={true} render={() => <Houses />} />
+        <Route path="/dashboard/banking"  exact={true} render={() => <Banking />} />
+        <Route path="/dashboard/p404"     exact={true} render={() => <Developing />} />
+        <Route path="/todo"               exact={true} render={() => <Todo />} />
+        <Route path="/setup"              exact={true} render={() => <Setup />} />
         <Redirect to={'/'} />
       </Switch>
     )
