@@ -17,30 +17,32 @@ import Developing from './component/pages/Developing/Developing';
 import Logout from './component/Logout/Logout.js'
 import MyAlert from './component/MyAlert/MyAlert'
 
-//import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import AlertState from './context/alert/alertState';
 import {FirebaseState} from './context/firebase/FirebaseState';
 import Loader from './component/Loader/Loader'
+import Home from './component/pages/Home/Home'
 //import  MyTheme from './component/UI/Theme'
 
 function App() {
   const [firebaseInit, setFirebaseInit] = React.useState(false);
-  const isAuth = true;//useSelector(state => state.isAuth = true);
+  const isAuth = useSelector(state => state.isAuth = false);
   let routes = "";
   if (!isAuth) {
      routes = (
       <Switch>
-        <Route exact path="/" render={() => <div><h3>Home route</h3></div>} />
-        <Route path="/dashboard/houses" exact={true} render={() => <Houses />} />
+        <Route exact path="/" render={() => <Home />} />
+        {/*<Route path="/dashboard/houses" exact={true} render={() => <Houses />} />
         <Route path="/login" exact={true} render={() => <div><h3>Login route</h3></div>} />
         <Route path="/dashboard/p404" exact={true} render={() => <Developing />} />
-        <Redirect to={'/'} />
+     <Redirect to={'/'} />*/}
+
       </Switch>
     );
   }else{
      routes = (
       <Switch>
-        <Route exact path="/" render={() => <div><h3>Home route</h3></div>} />
+        <Route exact path="/" render={() =>  <Home />} />
         <Route path="/logout" exact={true} render={() => <Logout />} />
         <Route path="/dashboard" exact={true} render={() => <Dashboard selected />} />
         <Route path="/dashboard/houses" exact={true} render={() => <Houses />} />
@@ -66,7 +68,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline>
             <MyAlert />
-            <Header />
+            { isAuth ? <Header title={String(isAuth)} />:  <div>{String(isAuth)}</div>}
             {routes}
           </CssBaseline>
         </ThemeProvider>

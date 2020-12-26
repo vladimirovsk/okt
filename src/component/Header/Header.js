@@ -6,9 +6,6 @@ import AppBar from '@material-ui/core/AppBar';
 import {Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, CssBaseline} from '@material-ui/core';
 import {Collapse, Toolbar, Typography, IconButton} from '@material-ui/core';
 //import useMediaQuery from "@material-ui/core/useMediaQuery";
-import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress} from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -26,17 +23,15 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import NoteIcon from '@material-ui/icons/Note';
 import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 //import { useSelector} from 'react-redux';
-
 //import {useContext} from 'react';
 //import {Context} from '../../context'
-
 //Import my component
 //import firebase from '../../component/firebase';
 //import {auth} from '../../store/actions/auth';
 //import { SettingsSystemDaydreamOutlined } from '@material-ui/icons';
 //import logo from '../../assets/logo.png'
 const drawerWidth = 240;
-const nodeEnv = process.env.NODE_ENV;
+//const nodeEnv = process.env.NODE_ENV;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -157,24 +152,22 @@ const useStyles = makeStyles((theme) => ({
       },
 
 }));
+
+
 const Header = (props) => {
     const classes = useStyles();
    //const theme = useTheme();  
 
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
-    const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
     //const type = useContext(Context);
     
 
     const [openPanel, setOpenPanel] = React.useState(false);
-    const [openLogin, setOpenLogin] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(false);
     const [openDirectory, setOpenDirectory] = React.useState(false); //Открытые директории справочников
     const [openReport, setOpenReport] = React.useState(false);
     const open = Boolean(anchorEl);
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const isAuth = true//useSelector(state => state.isAuth)
@@ -182,7 +175,6 @@ const Header = (props) => {
 
     React.useEffect(()=>{
         setSelectedIndex(selectedIndex);
-        console.log(selectedIndex);
        // setOpenLogin(!props.isAuth)
         //if (openPanel && !props.isAuth){
         //    setOpenPanel(false)
@@ -200,17 +192,6 @@ const Header = (props) => {
     //     }
     // }
 
-    async function handleLogin()  {
-        //await props.auth(email, password, true) 
-
-        //if (props.isAuth ===true) {
-            setLoading(false)
-        //    handleCloseLogin()
-        //    setOpenLogin(false)
-        //} else {
-        //    setOpenLogin(true)}
-    }
-
     const habdleCloseMenu =() =>{
         setAnchorEl();
     }
@@ -223,22 +204,6 @@ const Header = (props) => {
         setOpenPanel(!openPanel);
         };                
 
-
-    const handleCloseLogin = () =>{
-
-        setOpenPanel(false);
-        setOpenLogin(false);
-    }
-
-    const handleOpenLogin = () =>{
-
-        if (!props.isAuth) {
-            habdleCloseMenu();
-            setOpenLogin(true);
-        } else {
-            //props.isAuth = false;
-        }
-    }
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
@@ -261,89 +226,6 @@ const Header = (props) => {
     const handleReport = () => {
         setOpenReport(!openReport);
     }
-
-    const dialog =(
-        <Dialog     open={openLogin}
-                    onClose={handleCloseLogin}
-                    disableBackdropClick
-                    disableEscapeKeyDown
-                    maxWidth="xs"
-                    onEntering={null}
-                    aria-labelledby="confirmation-dialog-title"
-                    aria-describedby="confirmation-dialog-description"
-            >            
-                <DialogTitle id="confirmation-dialog-title">{"Login"}</DialogTitle>
-                <DialogContent dividers>
-                    <DialogContentText id="confirmation-dialog-description">
-                       
-                    </DialogContentText>
-                    <TextField
-                        className={classes.textField}
-                        id="login"
-                        label={'Enter your email'}
-                        margin="dense"
-                        type="email"
-                        //autoComplete="current-email"
-                        //variant="outlined"
-
-                        fullWidth
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        
-                    />
-                    <TextField
-                        className={classes.textField}
-                        //disabled={false}
-                        autoFocus
-                        margin="dense"
-                        id="password"
-                        label={'Enter your password'}
-                        type="password"
-                        //autoComplete="current-password"
-                        //variant="outlined"
-                        fullWidth
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                </DialogContent>
-                
-                <DialogActions>
-                    <Button onClick={handleCloseLogin}
-                            //color="secondary" 
-                            variant="outlined"
-                            >
-
-                            {"Cancel"}
-                    </Button>
-                    <Button disabled={false}
-                            onClick={(event) => handleLogin(event)}
-                            //color="secondary" 
-                            variant="outlined">
-
-                            {"Login"}
-                            {loading && <CircularProgress disableShrink size={24} className={classes.buttonProgress}/>}
-                    </Button>
-                    
-
-                </DialogActions>
-
-                {/*
-                    return firebaseInit !== false ? (
-                    
-                        <div className="App">
-                            <ThemeProvider theme={theme}>
-                            <CssBaseline>
-                                <Header />
-                                {routes}
-                            </CssBaseline>
-                            </ThemeProvider>
-                        </div>
-
-                    ):<div id='loader'><CircularProgress /> </div>
-                */}
-                
-            </Dialog>
-    )
 
     const drawer =(
         <React.Fragment>
@@ -504,7 +386,8 @@ const Header = (props) => {
                         <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" className={classes.title} noWrap>
-                            CRM&nbsp;mode:{nodeEnv} 
+                            AUTH={props.title}<br/>
+                            CRM&nbsp;mode:
                         </Typography> 
                         <IconButton
                             aria-label="account of current user"
@@ -532,15 +415,14 @@ const Header = (props) => {
                         >
                             <MenuItem onClick={null}>Profile</MenuItem>
                             <hr/>
-                            <MenuItem onClick={handleOpenLogin}>{props.isAuth ?'Logout': 'Login'}</MenuItem>
+                            <MenuItem onClick={null}>{props.isAuth ?'Logout': 'Login'}</MenuItem>
                             
                         </Menu>
                     </Toolbar>
                 </AppBar>
                 {drawer}
                 <main className={classes.content}>
-                </main> 
-                {dialog}
+                </main>
         </div>
     )
 }
