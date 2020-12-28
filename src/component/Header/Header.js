@@ -25,9 +25,6 @@ import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 //import {Context} from '../../context'
 
 //Import my component
-
-//import firebase from '../../component/firebase';
-//import {auth} from '../../store/actions/auth';
 import Login from '../Login/Login';
 //import { SettingsSystemDaydreamOutlined } from '@material-ui/icons';
 //import logo from '../../assets/logo.png'
@@ -148,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
     const classes = useStyles(); 
+    
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
     //const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
     //const type = useContext(Context);
@@ -161,7 +159,7 @@ const Header = (props) => {
 
     React.useEffect(()=>{
         setSelectedIndex(selectedIndex);
-        console.log(selectedIndex);
+        //console.log(selectedIndex);
        // setOpenLogin(!props.isAuth)
         //if (openPanel && !props.isAuth){
         //    setOpenPanel(false)
@@ -170,7 +168,7 @@ const Header = (props) => {
     }, [selectedIndex])
     
 
-    const habdleCloseMenu =() =>{
+    const handleCloseMenu =() =>{
         setAnchorEl();
     }
 
@@ -184,8 +182,9 @@ const Header = (props) => {
 
     const handleOpenLogin = () =>{
         if (!props.isAuth) {
-            habdleCloseMenu();
+            handleCloseMenu();
         } else {
+            //setOpenLogin(true);
             //props.isAuth = false;
         }
     }
@@ -361,7 +360,7 @@ const Header = (props) => {
                     <Toolbar>
                         <IconButton 
                             edge="start"
-                            onClick={isAuth ?handleDrawerOpen :null}
+                            onClick={isAuth ? handleDrawerOpen : handleDrawerOpen }
                             //onClick = {handleDrawerOpen}
                             className={clsx(classes.menuButton, open && classes.hide)}
                             color="inherit"
@@ -370,8 +369,9 @@ const Header = (props) => {
                         <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" className={classes.title} noWrap>
-                            CRM&nbsp;mode:{nodeEnv} 
+                            CRM&nbsp;mode:{nodeEnv}
                         </Typography> 
+                    
                         <IconButton
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
@@ -394,7 +394,7 @@ const Header = (props) => {
                             horizontal: 'right',
                             }} 
                             open={open}
-                            onClose={habdleCloseMenu}
+                            onClose={handleCloseMenu}
                         >
                             <MenuItem onClick={null}>Profile</MenuItem>
                             <hr/>

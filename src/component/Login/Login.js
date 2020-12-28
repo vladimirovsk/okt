@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import {auth} from '../../store/actions/auth';
-import {useSelector, useDispatch} from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,30 +22,18 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
 
   const classes = useStyles(); 
-  const dispatch = useDispatch();
-  const auth = useSelector(state => state.auth) //Для отображения статуса загрузки логина
-  const authData = useSelector(state => state.authData) //Для отображения статуса загрузки логина
-
-
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [openLogin, setOpenLogin] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
+  
 
-
-
-  async function handleLogin()  {
-    //await auth(email, password, true) 
-    dispatch(await auth);
-
-    console.log('email', email);
-    console.log('password', password);
-    console.log('auth',auth);
-
+  async function handleLogin(props)  {
+    //console.log(localStorage.getItem("token"));
     //if (props.isAuth ===true) {
-        setLoading(false)
-    //    handleCloseLogin()
-    //    setOpenLogin(false)
+    setLoading(false)
+    handleCloseLogin()
+    setOpenLogin(false)
     //} else {
     //    setOpenLogin(true)}
 }
@@ -105,7 +91,6 @@ function Login() {
             //color="secondary" 
             variant="outlined"
             >
-
             {"Cancel"}
     </Button>
     <Button disabled={false}

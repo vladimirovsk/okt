@@ -1,21 +1,22 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { makeStyles} from '@material-ui/core/styles';
-import {useSelector} from 'react-redux';
+import { CounterContext } from '../../../context/counter/counterContext';
 
 const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
 }));
 function Setup(){
+  const {counter} = useContext(CounterContext);
 
-  const counter = useSelector(state => state.counter)
 
   const classes = useStyles();
   return(
     <React.Fragment>
       <div className={classes.appBarSpacer} />
       <h3>SETUP CONFIGURATION FROM USER</h3>
-      <h3>{counter}</h3>
-      
+      <pre>{JSON.stringify('',null,2)}</pre>
+     
+      <h3>counter: {counter}</h3>      
     </React.Fragment>
     
   )

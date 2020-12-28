@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState, useMemo} from 'react';
 import './App.css';
-import { Provider } from 'react-redux';
 import Header from "./component/Header/Header";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -20,27 +19,45 @@ import Logout from './component/Logout/Logout.js'
 import MyAlert from './component/MyAlert/MyAlert'
 
 import AlertState from './context/alert/alertState';
+import Login from "./component/Login/Login"
+
+import { UserContext } from './context/user/userContext';
+import { CounterContext } from './context/counter/counterContext';
 //import Loader from './component/Loader/Loader'
 //import  MyTheme from './component/UI/Theme'
+ function App(props) {
+  const isAuth = localStorage.getItem('isAuth');///props.isAuth;
+  const [authUser, setAuthUser] = useState(null);
+  const [counter, setCounter] = useState(0);
+  
+  const counterM = useMemo(()=>({counter, setCounter}), [counter, setCounter]);
+  const value = useMemo(()=>({authUser, setAuthUser}), [authUser, setAuthUser]);
 
-function App() {
-  const isAuth = false;// React.useSelector(state => state.isAuth = true);
+  React.useEffect(()=>{
+    
+    if (!isAuth) {
+      console.log('isAuth', isAuth);
+      setAuthUser(null)
+    }
+
+  },[isAuth])
+
   let routes = "";
-  console.log('AUTH=',isAuth);
+  
   if (!isAuth) {
      routes = (
       <Switch>
-        <Route path="/"                 exact={true} render={() => <div><h3>Home route</h3></div>} />
-        <Route path="/dashboard/houses" exact={true} render={() => <Houses />} />
+        <Route path="/"                 exact={true} render={() => <div />} />
+        {/* <Route path="/dashboard/houses" exact={true} render={() => <Houses />} />
         <Route path="/login"            exact={true} render={() => <div><h3>Login route</h3></div>} />
-        <Route path="/dashboard/p404"   exact={true} render={() => <Developing />} />
+        <Route path="/dashboard/p404"   exact={true} render={() => <Developing />} /> */}
         <Redirect to={'/'} />
       </Switch>
     );
   }else{
      routes = (
       <Switch>
-        <Route path="/"                   exact={true} render={() => <div><h3>Home route</h3></div>} />
+        <Route path="/"                   exact={true} render={() => <Dashboard selected />} />
         <Route path="/logout"             exact={true} render={() => <Logout />} />
         <Route path="/dashboard"          exact={true} render={() => <Dashboard selected />} />
         <Route path="/dashboard/houses"   exact={true} render={() => <Houses />} />
@@ -57,15 +74,19 @@ function App() {
   return (
     <div className="App">
       <AlertState>
-        <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline>
+            
             <MyAlert />
-            <Header />
+            <CounterContext.Provider value={counterM}>
+            <UserContext.Provider value={value}>
+            {!isAuth ? <Login openned='true'/> : <Header />}
             {routes}
+            </UserContext.Provider>
+            </CounterContext.Provider>
+
           </CssBaseline>
         </ThemeProvider>
-        </Provider>
       </AlertState>
     </div>
   )
