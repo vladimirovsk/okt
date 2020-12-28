@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
+import { Provider } from 'react-redux';
 import Header from "./component/Header/Header";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './component/UI/Theme'
 //import { CssBaseline, CircularProgress } from '@material-ui/core';
 import { CssBaseline } from '@material-ui/core';
-import firebase from './component/firebase'
 
 
 //PAGES
@@ -19,16 +19,14 @@ import Developing from './component/pages/Developing/Developing';
 import Logout from './component/Logout/Logout.js'
 import MyAlert from './component/MyAlert/MyAlert'
 
-//import { useSelector } from 'react-redux'
 import AlertState from './context/alert/alertState';
-import {FirebaseState} from './context/firebase/FirebaseState';
-import Loader from './component/Loader/Loader'
+//import Loader from './component/Loader/Loader'
 //import  MyTheme from './component/UI/Theme'
 
 function App() {
-  const [firebaseInit, setFirebaseInit] = React.useState(false);
-  const isAuth = true;//useSelector(state => state.isAuth = true);
+  const isAuth = false;// React.useSelector(state => state.isAuth = true);
   let routes = "";
+  console.log('AUTH=',isAuth);
   if (!isAuth) {
      routes = (
       <Switch>
@@ -55,16 +53,11 @@ function App() {
     )
   }
 
-  React.useEffect(() => {
-    firebase.isInitialized().then(val => {
-      setFirebaseInit(val)
-    })
-  })
-  
-  return firebaseInit !== false ? (
+    //return firebaseInit !== false ? () : <div id='loader'><Loader /> </div>  
+  return (
     <div className="App">
-      <FirebaseState>
       <AlertState>
+        <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline>
             <MyAlert />
@@ -72,10 +65,10 @@ function App() {
             {routes}
           </CssBaseline>
         </ThemeProvider>
+        </Provider>
       </AlertState>
-      </FirebaseState>
     </div>
-  ) : <div id='loader'><Loader /> </div>
+  )
 }
 
 export default App;

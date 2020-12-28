@@ -8,9 +8,9 @@ export function auth(email, password, isLogin) {
             email, password
         }
         
-        let url ='http://localhost:8181/api/v2/account/register';
+        let url ='https://server.itservis.od.ua/api/account/register';
         if (isLogin) {
-           url = 'http://localhost:8181/api/v2/account/login';
+           url = 'https://server.itservis.od.ua/api/account/login';
         }
 
         try {

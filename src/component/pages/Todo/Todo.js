@@ -2,8 +2,7 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {Container} from '@material-ui/core'
 //import AlertContext from '../../../context/alert/alertContext'
-import { FirebaseContext } from '../../../context/firebase/firebaseContext';
-import Loader from '../../Loader/Loader';
+//import Loader from '../../Loader/Loader';
 //import {Tables} from '../../Tables/Tables';
 
 
@@ -28,8 +27,6 @@ function Todo(){
 
   const classes = useStyles();
   //const alert = React.useContext(AlertContext)
-  const {loading,fetchNotes, notes} = React.useContext(FirebaseContext)
-  const firebase = React.useContext(FirebaseContext)
   // const handleBtnClick = event =>{ 
   //     event.preventDefault();
   //     firebase.addNote('TEST TODO').then(()=>{
@@ -40,8 +37,8 @@ function Todo(){
   // }      
 
   React.useEffect(()=>{
-      fetchNotes()
-      console.log("notes", firebase)
+      
+    
   }, [])
 
   
@@ -52,11 +49,11 @@ function Todo(){
       <Container maxWidth="lg" className={classes.container}>
         <h3>TODO</h3>
         {/*<button onClick={handleBtnClick}>ADD TODO</button>*/}
-          {loading 
+          {/*loading 
           ? <Loader /> 
           : <div>
             {notes}
-          </div>
+          </div>*/
           }
       </Container>   
 
