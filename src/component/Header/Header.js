@@ -28,7 +28,7 @@ import Login from '../Login/Login';
 //import { SettingsSystemDaydreamOutlined } from '@material-ui/icons';
 //import logo from '../../assets/logo.png'
 const drawerWidth = 240;
-//const nodeEnv = process.env.NODE_ENV;
+const nodeEnv = process.env.NODE_ENV;
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -19,7 +19,6 @@ import MyAlert from './component/MyAlert/MyAlert'
 import AlertState from './context/alert/alertState';
 import Login from "./component/Login/Login"
 
-import { UserContext } from './context/user/userContext';
 import { CounterContext } from './context/counter/counterContext';
 //import Loader from './component/Loader/Loader'
 //import  MyTheme from './component/UI/Theme'
@@ -77,10 +76,10 @@ import { CounterContext } from './context/counter/counterContext';
             
             <MyAlert />
             <CounterContext.Provider value={counterM}>
-            <UserContext.Provider value={value}>
+            
             {!isAuth ? <Login openned='true'/> : <Header />}
             {routes}
-            </UserContext.Provider>
+            
             </CounterContext.Provider>
 
           </CssBaseline>
