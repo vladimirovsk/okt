@@ -2,15 +2,15 @@ import axios from 'axios'
 import {AUTH_LOGOUT, AUTH_SUCCESS} from './actionTypes'
 
 export function auth(email, password, isLogin) {
-
+    console.log('authF', email, password )
     return async dispatch => {
         const authData = {
             email, password
         }
-        
-        let url ='http://localhost:8181/api/v2/account/register';
+        console.log('authF1', email, password )
+        let url ='https://server.itservis.od.ua/api/account/register';
         if (isLogin) {
-           url = 'http://localhost:8181/api/v2/account/login';
+           url = 'https://server.itservis.od.ua/api/account/login';
         }
 
         try {
@@ -26,7 +26,7 @@ export function auth(email, password, isLogin) {
                 })
             const data = responce.data
             if (data.auth) {
-                //console.log("VERIFICATION")
+                console.log("VERIFICATION")
 //                const expirationDate = new Date(new Date().getTime()+ 3600*1000)
                 const expirationDate = new Date(new Date().getTime()+ 3600*10)
                 localStorage.setItem('token', data.jwt);

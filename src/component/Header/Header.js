@@ -5,13 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import {Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, CssBaseline} from '@material-ui/core';
 import {Collapse, Toolbar, Typography, IconButton} from '@material-ui/core';
+<<<<<<< HEAD
 //import useMediaQuery from "@material-ui/core/useMediaQuery";
+=======
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MenuIcon from '@material-ui/icons/Menu';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -26,8 +28,7 @@ import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 //import {useContext} from 'react';
 //import {Context} from '../../context'
 //Import my component
-//import firebase from '../../component/firebase';
-//import {auth} from '../../store/actions/auth';
+import Login from '../Login/Login';
 //import { SettingsSystemDaydreamOutlined } from '@material-ui/icons';
 //import logo from '../../assets/logo.png'
 const drawerWidth = 240;
@@ -66,6 +67,8 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+
+
     hide: {
         display: 'none',
       },
@@ -100,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
           duration: theme.transitions.duration.enteringScreen,
         }),
       },
-      drawerClose: {
+    drawerClose: {
         transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
@@ -129,16 +132,6 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginLeft: 0,
       },
-
-    textField: {
-        '& .MuiTextField-root': {
-          margin: theme.spacing(1),
-          width: '25ch',
-        },
-
-        //backgroundColor: '#fff', //theme.palette.common.primary''
-        paddingTop: theme.spacing(1),
-      },
       directory: {
         paddingLeft: theme.spacing(4),
       },
@@ -152,29 +145,42 @@ const useStyles = makeStyles((theme) => ({
       },
 
 }));
+<<<<<<< HEAD
 
 
 const Header = (props) => {
     const classes = useStyles();
    //const theme = useTheme();  
+=======
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
 
-    //const matches = useMediaQuery(theme.breakpoints.down("sm"));
-    //const type = useContext(Context);
+const Header = (props) => {
+    const classes = useStyles(); 
     
-
+    //const matches = useMediaQuery(theme.breakpoints.down("sm"));
+<<<<<<< HEAD
+=======
+    //const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
+    //const type = useContext(Context);
     const [openPanel, setOpenPanel] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(false);
     const [openDirectory, setOpenDirectory] = React.useState(false); //Открытые директории справочников
     const [openReport, setOpenReport] = React.useState(false);
     const open = Boolean(anchorEl);
+<<<<<<< HEAD
 
+=======
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
     const [selectedIndex, setSelectedIndex] = React.useState(0);
-
-    const isAuth = true//useSelector(state => state.isAuth)
-
+    const isAuth = false;//useSelector(state => state.isAuth)
 
     React.useEffect(()=>{
         setSelectedIndex(selectedIndex);
+<<<<<<< HEAD
+=======
+        //console.log(selectedIndex);
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
        // setOpenLogin(!props.isAuth)
         //if (openPanel && !props.isAuth){
         //    setOpenPanel(false)
@@ -182,6 +188,7 @@ const Header = (props) => {
         //console.log("Handle useEffect", props.isAuth)
     }, [selectedIndex])
     
+<<<<<<< HEAD
     // async function onLogin(){
     //     try{
     //         await firebase.login(email,password);
@@ -193,6 +200,10 @@ const Header = (props) => {
     // }
 
     const habdleCloseMenu =() =>{
+=======
+
+    const handleCloseMenu =() =>{
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
         setAnchorEl();
     }
 
@@ -204,7 +215,18 @@ const Header = (props) => {
         setOpenPanel(!openPanel);
         };                
 
+<<<<<<< HEAD
 
+=======
+    const handleOpenLogin = () =>{
+        if (!props.isAuth) {
+            handleCloseMenu();
+        } else {
+            //setOpenLogin(true);
+            //props.isAuth = false;
+        }
+    }
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
         switch(index){
@@ -377,7 +399,7 @@ const Header = (props) => {
                     <Toolbar>
                         <IconButton 
                             edge="start"
-                            onClick={isAuth ?handleDrawerOpen :null}
+                            onClick={isAuth ? handleDrawerOpen : handleDrawerOpen }
                             //onClick = {handleDrawerOpen}
                             className={clsx(classes.menuButton, open && classes.hide)}
                             color="inherit"
@@ -386,9 +408,14 @@ const Header = (props) => {
                         <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" className={classes.title} noWrap>
+<<<<<<< HEAD
                             AUTH={props.title}<br/>
                             CRM&nbsp;mode:
+=======
+                            CRM&nbsp;mode:{nodeEnv}
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
                         </Typography> 
+                    
                         <IconButton
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
@@ -411,7 +438,7 @@ const Header = (props) => {
                             horizontal: 'right',
                             }} 
                             open={open}
-                            onClose={habdleCloseMenu}
+                            onClose={handleCloseMenu}
                         >
                             <MenuItem onClick={null}>Profile</MenuItem>
                             <hr/>
@@ -421,8 +448,13 @@ const Header = (props) => {
                     </Toolbar>
                 </AppBar>
                 {drawer}
+                <Login />
                 <main className={classes.content}>
+<<<<<<< HEAD
                 </main>
+=======
+                </main> 
+>>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
         </div>
     )
 }
