@@ -8,7 +8,7 @@ export function getPayMount (year_yyyy, datasource_private, datasource_easy) {
             const responcePrivat = await  axios.post(url, {client_id:2,year_yyyy:year_yyyy},
                 {
                     headers: {
-                        'Access-Control-Allow-Origin': "http://localhost:8181/",
+                        'Access-Control-Allow-Origin': "http://localhost:8181/api/v2",
                         'Content-Type': 'application/json',
                         mode: 'cors'
                     }
@@ -16,7 +16,7 @@ export function getPayMount (year_yyyy, datasource_private, datasource_easy) {
             const responceEasy = await  axios.post(url, {client_id:5,year_yyyy:year_yyyy},
                 {
                     headers: {
-                        'Access-Control-Allow-Origin': "http://localhost:8181/",
+                        'Access-Control-Allow-Origin': "http://localhost:8181/api/v2",
                         'Content-Type': 'application/json',
                         mode: 'cors'
                     }
