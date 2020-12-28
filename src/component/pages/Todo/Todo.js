@@ -2,11 +2,7 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {Container} from '@material-ui/core'
 //import AlertContext from '../../../context/alert/alertContext'
-<<<<<<< HEAD
-import Loader from '../../Loader/Loader';
-=======
 //import Loader from '../../Loader/Loader';
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
 //import {Tables} from '../../Tables/Tables';
 
 
@@ -41,13 +37,8 @@ function Todo(){
   // }      
 
   React.useEffect(()=>{
-<<<<<<< HEAD
-     
-      console.log("notes", 'NONE')
-=======
       
     
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
   }, [])
 
   
@@ -57,15 +48,6 @@ function Todo(){
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <h3>TODO</h3>
-<<<<<<< HEAD
-        {/*<button onClick={handleBtnClick}>ADD TODO</button>
-          {loading 
-          ? <Loader /> 
-          : <div>
-          {notes}
-          </div>
-          }*/}
-=======
         {/*<button onClick={handleBtnClick}>ADD TODO</button>*/}
           {/*loading 
           ? <Loader /> 
@@ -73,7 +55,6 @@ function Todo(){
             {notes}
           </div>*/
           }
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
       </Container>   
 
 

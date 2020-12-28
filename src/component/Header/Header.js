@@ -5,10 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import {Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, CssBaseline} from '@material-ui/core';
 import {Collapse, Toolbar, Typography, IconButton} from '@material-ui/core';
-<<<<<<< HEAD
-//import useMediaQuery from "@material-ui/core/useMediaQuery";
-=======
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -145,42 +141,24 @@ const useStyles = makeStyles((theme) => ({
       },
 
 }));
-<<<<<<< HEAD
-
-
-const Header = (props) => {
-    const classes = useStyles();
-   //const theme = useTheme();  
-=======
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
 
 const Header = (props) => {
     const classes = useStyles(); 
     
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
-<<<<<<< HEAD
-=======
     //const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
     //const type = useContext(Context);
     const [openPanel, setOpenPanel] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(false);
     const [openDirectory, setOpenDirectory] = React.useState(false); //Открытые директории справочников
     const [openReport, setOpenReport] = React.useState(false);
     const open = Boolean(anchorEl);
-<<<<<<< HEAD
-
-=======
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const isAuth = false;//useSelector(state => state.isAuth)
 
     React.useEffect(()=>{
         setSelectedIndex(selectedIndex);
-<<<<<<< HEAD
-=======
         //console.log(selectedIndex);
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
        // setOpenLogin(!props.isAuth)
         //if (openPanel && !props.isAuth){
         //    setOpenPanel(false)
@@ -188,22 +166,8 @@ const Header = (props) => {
         //console.log("Handle useEffect", props.isAuth)
     }, [selectedIndex])
     
-<<<<<<< HEAD
-    // async function onLogin(){
-    //     try{
-    //         await firebase.login(email,password);
-    //         props.history.replace('/dashboard');
-    //         handleCloseLogin();
-    //     }catch(error){
-    //         alert(error.message)
-    //     }
-    // }
-
-    const habdleCloseMenu =() =>{
-=======
 
     const handleCloseMenu =() =>{
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
         setAnchorEl();
     }
 
@@ -215,9 +179,6 @@ const Header = (props) => {
         setOpenPanel(!openPanel);
         };                
 
-<<<<<<< HEAD
-
-=======
     const handleOpenLogin = () =>{
         if (!props.isAuth) {
             handleCloseMenu();
@@ -226,7 +187,6 @@ const Header = (props) => {
             //props.isAuth = false;
         }
     }
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
         switch(index){
@@ -408,12 +368,7 @@ const Header = (props) => {
                         <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" className={classes.title} noWrap>
-<<<<<<< HEAD
-                            AUTH={props.title}<br/>
-                            CRM&nbsp;mode:
-=======
                             CRM&nbsp;mode:{nodeEnv}
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
                         </Typography> 
                     
                         <IconButton
@@ -450,11 +405,7 @@ const Header = (props) => {
                 {drawer}
                 <Login />
                 <main className={classes.content}>
-<<<<<<< HEAD
-                </main>
-=======
                 </main> 
->>>>>>> d74a48f1e53d0f51bced622da372c178288ff430
         </div>
     )
 }
