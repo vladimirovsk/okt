@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { LoginContext } from '../../context/login/loginContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,10 +22,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
 
+  const {openLogin, setOpenLogin} = useContext(LoginContext);
+
   const classes = useStyles(); 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [openLogin, setOpenLogin] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   
 
@@ -33,7 +35,6 @@ function Login() {
     //if (props.isAuth ===true) {
     setLoading(false)
     handleCloseLogin()
-    setOpenLogin(false)
     //} else {
     //    setOpenLogin(true)}
 }

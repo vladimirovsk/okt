@@ -25,6 +25,7 @@ import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 //import {Context} from '../../context'
 //Import my component
 import Login from '../Login/Login';
+import {LoginContext} from '../../context/login/loginContext'
 //import { SettingsSystemDaydreamOutlined } from '@material-ui/icons';
 //import logo from '../../assets/logo.png'
 const drawerWidth = 240;
@@ -147,7 +148,8 @@ const Header = (props) => {
     
     //const matches = useMediaQuery(theme.breakpoints.down("sm"));
     //const [loading, setLoading] = React.useState(false); //Для отображения статуса загрузки логина
-    //const type = useContext(Context);
+    const {openLogin, setOpenLogin} = React.useContext(LoginContext);
+
     const [openPanel, setOpenPanel] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(false);
     const [openDirectory, setOpenDirectory] = React.useState(false); //Открытые директории справочников
@@ -182,6 +184,8 @@ const Header = (props) => {
     const handleOpenLogin = () =>{
         if (!props.isAuth) {
             handleCloseMenu();
+            setOpenLogin(true);
+            console.log('openLoginDialog');
         } else {
             //setOpenLogin(true);
             //props.isAuth = false;
@@ -397,7 +401,7 @@ const Header = (props) => {
                         >
                             <MenuItem onClick={null}>Profile</MenuItem>
                             <hr/>
-                            <MenuItem onClick={null}>{props.isAuth ?'Logout': 'Login'}</MenuItem>
+                            <MenuItem onClick={handleOpenLogin}>{props.isAuth ?'Logout': 'Login'}</MenuItem>
                             
                         </Menu>
                     </Toolbar>

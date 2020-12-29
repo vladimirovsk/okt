@@ -20,24 +20,17 @@ import AlertState from './context/alert/alertState';
 import Login from "./component/Login/Login"
 
 import { CounterContext } from './context/counter/counterContext';
+import { LoginContext } from './context/login/loginContext';
 //import Loader from './component/Loader/Loader'
 //import  MyTheme from './component/UI/Theme'
  function App(props) {
-  const isAuth = localStorage.getItem('isAuth');///props.isAuth;
-  const [authUser, setAuthUser] = useState(null);
+  const isAuth = true// localStorage.getItem('isAuth');///props.isAuth;
   const [counter, setCounter] = useState(0);
+  const [openLogin, setOpenLogin] = useState(false);
   
   const counterM = useMemo(()=>({counter, setCounter}), [counter, setCounter]);
-  const value = useMemo(()=>({authUser, setAuthUser}), [authUser, setAuthUser]);
-
-  React.useEffect(()=>{
+  const login = useMemo(()=>({openLogin, setOpenLogin}), [openLogin, setOpenLogin]);
     
-    if (!isAuth) {
-      console.log('isAuth', isAuth);
-      setAuthUser(null)
-    }
-
-  },[isAuth])
 
   let routes = "";
   
@@ -73,15 +66,13 @@ import { CounterContext } from './context/counter/counterContext';
       <AlertState>
         <ThemeProvider theme={theme}>
           <CssBaseline>
-            
             <MyAlert />
-            <CounterContext.Provider value={counterM}>
-            
-            {!isAuth ? <Login openned='true'/> : <Header />}
-            {routes}
-            
+            <CounterContext.Provider value={counterM}>     
+            <LoginContext.Provider value={login}>    
+              {!isAuth ? <Login openned='true'/> : <Header />}
+              {routes}
+            </LoginContext.Provider>
             </CounterContext.Provider>
-
           </CssBaseline>
         </ThemeProvider>
       </AlertState>
