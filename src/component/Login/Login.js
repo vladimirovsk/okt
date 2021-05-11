@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Login() {
+function Login(props) {
 
   const {openLogin, setOpenLogin} = useContext(LoginContext);
 
@@ -28,10 +28,12 @@ function Login() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState(false);
+
+  console.log('props', props);
   
 
   async function handleLogin(props)  {
-    //console.log(localStorage.getItem("token"));
+    
     //if (props.isAuth ===true) {
     setLoading(false)
     handleCloseLogin()
@@ -43,6 +45,8 @@ function Login() {
     setOpenLogin(false);
   }
 
+  // console.log('LOGIN FORM', openLogin);
+  // console.log('LOGIN FORM', openned);
   return (
     <Dialog open={openLogin}
     onClose={handleCloseLogin}
@@ -65,7 +69,6 @@ function Login() {
         type="email"
         //autoComplete="current-email"
         //variant="outlined"
-
         fullWidth
         value={email}
         onChange={e => setEmail(e.target.value)}

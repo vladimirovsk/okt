@@ -161,7 +161,7 @@ const Header = (props) => {
     React.useEffect(()=>{
         setSelectedIndex(selectedIndex);
         //console.log(selectedIndex);
-       // setOpenLogin(!props.isAuth)
+        //setOpenLogin(!props.isAuth)
         //if (openPanel && !props.isAuth){
         //    setOpenPanel(false)
         //}
@@ -185,7 +185,7 @@ const Header = (props) => {
         if (!props.isAuth) {
             handleCloseMenu();
             setOpenLogin(true);
-            console.log('openLoginDialog');
+            console.log('openLoginDialog', openLogin);
         } else {
             //setOpenLogin(true);
             //props.isAuth = false;

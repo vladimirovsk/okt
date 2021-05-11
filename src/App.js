@@ -24,13 +24,18 @@ import { LoginContext } from './context/login/loginContext';
 //import Loader from './component/Loader/Loader'
 //import  MyTheme from './component/UI/Theme'
  function App(props) {
-  const isAuth = true// localStorage.getItem('isAuth');///props.isAuth;
+  let isAuth = false; // localStorage.getItem('isAuth');///props.isAuth;
   const [counter, setCounter] = useState(0);
   const [openLogin, setOpenLogin] = useState(false);
   
   const counterM = useMemo(()=>({counter, setCounter}), [counter, setCounter]);
   const login = useMemo(()=>({openLogin, setOpenLogin}), [openLogin, setOpenLogin]);
     
+
+  const handleLogin = () => {
+    setOpenLogin(!openLogin);
+    isAuth=!openLogin;
+  }
 
   let routes = "";
   
@@ -69,7 +74,8 @@ import { LoginContext } from './context/login/loginContext';
             <MyAlert />
             <CounterContext.Provider value={counterM}>     
             <LoginContext.Provider value={login}>    
-              {!isAuth ? <Login openned='true'/> : <Header />}
+              <Header />
+              <Login openned={true} />
               {routes}
             </LoginContext.Provider>
             </CounterContext.Provider>
